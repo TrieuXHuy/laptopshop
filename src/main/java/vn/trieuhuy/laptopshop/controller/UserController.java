@@ -4,11 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.*;
 import vn.trieuhuy.laptopshop.domain.User;
 import vn.trieuhuy.laptopshop.service.UserService;
 
@@ -36,22 +32,54 @@ public class UserController {
         return "admin/user/table-user";
     }
 
+    @RequestMapping("/admin/user/{id}")
+    public String getUserDetailPage(Model model, @PathVariable long id) {
+        User user = userService.getUserById(id);
+        model.addAttribute("user", user);
+        return "admin/user/show";
+    }
+
     @RequestMapping("/admin/user/create")
     public String getUserCreate(Model model) {
         model.addAttribute("newUser", new User());
         return "admin/user/create";
     }
 
-    @RequestMapping("/admin/user/{id}")
-    public String getUserDetailPage(Model model, @PathVariable long id) {
-        model.addAttribute("id", id);
-        return "admin/user/show";
+    @RequestMapping("/admin/user/update/{id}")
+    public String getUpdateUserPage(Model model, @PathVariable long id) {
+        User user = userService.getUserById(id);
+        model.addAttribute("newUser", user);
+        return "admin/user/update";
     }
 
-    @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
-    public String createUserPage(Model model, @ModelAttribute("newUser") User user) {
-        System.out.println("run here" + user);
-        this.userService.handleSaveUser(user);
+    @GetMapping("/admin/user/delete/{id}")
+    public String getDeleteUserPage(Model model, @PathVariable long id) {
+        model.addAttribute("id", id);
+        User user = new User();
+        user.setId(id);
+        model.addAttribute("newUser", user);
+        return "admin/user/delete";
+    }
+
+    @PostMapping("/admin/user/create")
+    public String createUserPage(Model model, @ModelAttribute("newUser") User newUser) {
+        this.userService.handleSaveUser(newUser);
+        return "redirect:/admin/user";
+    }
+
+    @PostMapping("/admin/user/update")
+    public String postUpdateUser(Model model, @ModelAttribute("newUser") User newUser) {
+        User user = userService.findUserById(newUser.getId());
+        if (user != null) {
+            user.updateFrom(newUser);
+            this.userService.handleSaveUser(user);
+        }
+        return "redirect:/admin/user";
+    }
+
+    @PostMapping("/admin/user/delete")
+    public String postDeleteUser(Model model, @ModelAttribute("newUser") User newUser) {
+        this.userService.deleteUser(newUser.getId());
         return "redirect:/admin/user";
     }
 }

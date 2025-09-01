@@ -19,7 +19,7 @@
             <body>
                 <div class="container">
                     <div class="d-flex justify-content-between my-4 py-3 border-bottom">
-                        <h2>Detail user ${id}</h3>
+                        <h2>Detail user ${user.id}</h3>
                     </div>
                     <table class="table table-bordered table-hover">
                         <div class="card" style="width: 60%;">
@@ -27,14 +27,15 @@
                                 User information
                             </div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Email</li>
-                                <li class="list-group-item">Full Name</li>
-                                <li class="list-group-item">address</li>
-                                <li class="list-group-item">phone</li>
+                                <li class="list-group-item">Id: ${user.id}</li>
+                                <li class="list-group-item">Email: ${user.email}</li>
+                                <li class="list-group-item">Full Name: ${user.fullName}</li>
+                                <li class="list-group-item">Address: ${user.address}</li>
+                                <li class="list-group-item">Phone: ${user.phone}</li>
                             </ul>
                         </div>
-
                     </table>
+                    <a href="/admin/user" class="btn btn-success">Back</a>
                 </div>
             </body>
 

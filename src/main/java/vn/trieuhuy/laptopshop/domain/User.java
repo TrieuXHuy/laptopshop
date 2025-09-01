@@ -77,6 +77,12 @@ public class User {
         this.phone = phone;
     }
 
+    public void updateFrom(User other) {
+        this.fullName = other.fullName;
+        this.phone = other.phone;
+        this.address = other.address;
+    }
+
     @Override
     public String toString() {
         return "User [id=" + id + ", email=" + email + ", password=" + password + ", fullName=" + fullName
