@@ -29,7 +29,7 @@ public class UserService {
         return this.userRepository.findAll();
     }
 
-    public List<User> findByEmail(String email) {
-        return this.userRepository.findByEmail(email);
+    public List<User> findAllByEmail(String email) {
+        return this.userRepository.findAllByEmail(email);
     }
 }
