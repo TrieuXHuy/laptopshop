@@ -1,21 +1,25 @@
-package vn.trieuhuy.laptopshop.controller;
+package vn.trieuhuy.laptopshop.controller.admin;
 
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import vn.trieuhuy.laptopshop.domain.User;
+import vn.trieuhuy.laptopshop.service.UploadService;
 import vn.trieuhuy.laptopshop.service.UserService;
 
 @Controller
 public class UserController {
 
-    // DI : dependency injection
     private final UserService userService;
+    private final UploadService uploadService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UploadService uploadService) {
         this.userService = userService;
+        this.uploadService = uploadService;
     }
 
     @RequestMapping("/")
@@ -29,17 +33,17 @@ public class UserController {
     public String getUserPage(Model model) {
         List<User> users = userService.findAllUser();
         model.addAttribute("users", users);
-        return "admin/user/table-user";
+        return "admin/user/show";
     }
 
     @RequestMapping("/admin/user/{id}")
     public String getUserDetailPage(Model model, @PathVariable long id) {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
-        return "admin/user/show";
+        return "admin/user/detail";
     }
 
-    @RequestMapping("/admin/user/create")
+    @GetMapping("/admin/user/create")
     public String getUserCreate(Model model) {
         model.addAttribute("newUser", new User());
         return "admin/user/create";
@@ -62,8 +66,11 @@ public class UserController {
     }
 
     @PostMapping("/admin/user/create")
-    public String createUserPage(Model model, @ModelAttribute("newUser") User newUser) {
-        this.userService.handleSaveUser(newUser);
+    public String createUserPage(Model model, @ModelAttribute("newUser") User newUser,
+            @RequestParam("hoidanitFile") MultipartFile file) {
+
+        String avatar = this.uploadService.handleSavaUpload(file, "avatar");
+        // this.userService.handleSaveUser(newUser);
         return "redirect:/admin/user";
     }
 
