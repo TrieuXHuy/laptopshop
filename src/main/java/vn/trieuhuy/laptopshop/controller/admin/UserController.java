@@ -2,6 +2,7 @@ package vn.trieuhuy.laptopshop.controller.admin;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,12 @@ public class UserController {
 
     private final UserService userService;
     private final UploadService uploadService;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService, UploadService uploadService) {
+    public UserController(UserService userService, UploadService uploadService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.uploadService = uploadService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @RequestMapping("/")
@@ -52,6 +55,8 @@ public class UserController {
     @RequestMapping("/admin/user/update/{id}")
     public String getUpdateUserPage(Model model, @PathVariable long id) {
         User user = userService.getUserById(id);
+        String pathAvatar = "http://localhost:8080/images/avatar/" + user.getAvatar();
+        model.addAttribute("pathAvatar", pathAvatar);
         model.addAttribute("newUser", user);
         return "admin/user/update";
     }
@@ -70,14 +75,24 @@ public class UserController {
             @RequestParam("hoidanitFile") MultipartFile file) {
 
         String avatar = this.uploadService.handleSavaUpload(file, "avatar");
-        // this.userService.handleSaveUser(newUser);
+        String hashPassword = this.passwordEncoder.encode(newUser.getPassword());
+        newUser.setAvatar(avatar);
+        newUser.setPassword(hashPassword);
+        newUser.setRole(this.userService.getRoleByName(newUser.getRole().getName()));
+        this.userService.handleSaveUser(newUser);
         return "redirect:/admin/user";
     }
 
     @PostMapping("/admin/user/update")
-    public String postUpdateUser(Model model, @ModelAttribute("newUser") User newUser) {
+    public String postUpdateUser(Model model, @ModelAttribute("newUser") User newUser,
+            @RequestParam("hoidanitFile") MultipartFile file) {
         User user = userService.findUserById(newUser.getId());
+        String avatar = this.uploadService.handleSavaUpload(file, "avatar");
         if (user != null) {
+            if (avatar != null) {
+                user.setAvatar(avatar);
+            }
+            user.setRole(this.userService.getRoleByName(newUser.getRole().getName()));
             user.updateFrom(newUser);
             this.userService.handleSaveUser(user);
         }

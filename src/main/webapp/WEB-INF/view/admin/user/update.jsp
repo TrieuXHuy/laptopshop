@@ -14,6 +14,16 @@
                 <title>Dashboard - SB Admin</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                <script>
+                    $(document).ready(() => {
+                        const avatarFile = $("#avatarFile");
+                        avatarFile.change(function (e) {
+                            const imgURL = URL.createObjectURL(e.target.files[0]);
+                            $("#avatarPreview").attr("src", imgURL);
+                        });
+                    });
+                </script>
             </head>
 
             <body class="sb-nav-fixed">
@@ -33,7 +43,7 @@
                                         <div class="col-xl-6 col-md-8 col-12">
                                             <h3 class="py-3 border-bottom">Update a user ${user.id}</h1>
                                                 <form:form action="/admin/user/update" method="post"
-                                                    modelAttribute="newUser">
+                                                    modelAttribute="newUser" enctype="multipart/form-data">
                                                     <div class="mb-3" style="display: none;">
                                                         <label for="form-lable" class="form-label">Id:</label>
                                                         <form:input type="text" class="form-control" path="id" />
@@ -55,10 +65,28 @@
                                                         <label for="form-lable" class="form-label">Address:</label>
                                                         <form:input type="text" class="form-control" path="address" />
                                                     </div>
+                                                    <div class="row g-3 mb-3">
+                                                        <div class="col-md-6 col-12">
+                                                            <label for="formFile" class="form-label">Role:</label>
+                                                            <form:select class="form-select" path="role.name">
+                                                                <form:option value="ADMIN">ADMIN</form:option>
+                                                                <form:option value="USER">USER</form:option>
+                                                            </form:select>
+                                                        </div>
+                                                        <div class="col-md-6 col-12">
+                                                            <label for="avatarFile" class="form-label">Change
+                                                                avatar:</label>
+                                                            <input class="form-control" type="file" id="avatarFile"
+                                                                name="hoidanitFile" accept=".png, .jpg, .jpeg">
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <img src="${pathAvatar}" alt="avatar preview"
+                                                                style="max-height: 250px;" id="avatarPreview">
+                                                        </div>
+                                                    </div>
                                                     <button type="submit" class="btn btn-warning">Update</button>
                                                 </form:form>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -68,7 +96,6 @@
                 </div>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
                     crossorigin="anonymous"></script>
-                <script src="js/scripts.js"></script>
             </body>
 
             </html>
