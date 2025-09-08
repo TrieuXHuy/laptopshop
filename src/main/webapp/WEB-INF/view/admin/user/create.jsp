@@ -38,7 +38,7 @@
                                 <h1 class="mt-4">Create Users</h1>
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item active"><a href="/admin">Dashboard</a> / <a
-                                            href="/admin/user">Users</a></li>
+                                            href="/admin/user">Users</a> / Create</li>
                                 </ol>
                                 <div class="text-start">
                                     <div class="row justify-content-center">
@@ -106,7 +106,7 @@
                                                         <div class="col-md-6 col-12">
                                                             <label for="avatarFile" class="form-label">Avatar:</label>
                                                             <input class="form-control" type="file" id="avatarFile"
-                                                                name="hoidanitFile" accept=".png, .jpg, .jpeg">
+                                                                name="avatarFile" accept=".png, .jpg, .jpeg">
                                                         </div>
                                                         <div class="col-12">
                                                             <img src="" alt="avatar preview"

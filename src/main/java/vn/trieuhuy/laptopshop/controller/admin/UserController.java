@@ -76,7 +76,7 @@ public class UserController {
     @PostMapping("/admin/user/create")
     public String createUserPage(Model model, @ModelAttribute("newUser") @Valid User newUser,
             BindingResult newUserBindingResult,
-            @RequestParam("hoidanitFile") MultipartFile file) {
+            @RequestParam("avatarFile") MultipartFile file) {
 
         List<FieldError> errors = newUserBindingResult.getFieldErrors();
         for (FieldError error : errors) {
@@ -98,7 +98,7 @@ public class UserController {
 
     @PostMapping("/admin/user/update")
     public String postUpdateUser(Model model, @ModelAttribute("newUser") User newUser,
-            @RequestParam("hoidanitFile") MultipartFile file) {
+            @RequestParam("avatarFile") MultipartFile file) {
         User user = userService.findUserById(newUser.getId());
         String avatar = this.uploadService.handleSavaUpload(file, "avatar");
         if (user != null) {
