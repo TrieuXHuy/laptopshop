@@ -35,76 +35,70 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container-fluid px-4">
-                                <h1 class="mt-4">Create Users</h1>
+                                <h1 class="mt-4">Create Product</h1>
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item active"><a href="/admin">Dashboard</a> / <a
-                                            href="/admin/user">Users</a></li>
+                                            href="/admin/product">Product</a></li>
                                 </ol>
                                 <div class="text-start">
                                     <div class="row justify-content-center">
                                         <div class="col-xl-6 col-md-8 col-12">
-                                            <h3 class="py-3 border-bottom">Create a user</h1>
+                                            <h3 class="py-3 border-bottom">Create a product</h1>
                                                 <form:form action="/admin/user/create" method="post"
-                                                    modelAttribute="newUser" enctype="multipart/form-data">
+                                                    modelAttribute="newProduct" enctype="multipart/form-data">
                                                     <div class="row g-3 mb-3">
                                                         <div class="col-md-6 col-12">
-                                                            <c:set var="errorEmail">
-                                                                <form:errors path="email" cssClass="invalid-feedback" />
-                                                            </c:set>
-                                                            <label for="form-lable" class="form-label">Email:</label>
-                                                            <form:input type="email"
-                                                                class="form-control  ${not empty errorEmail ? 'is-invalid':''}"
-                                                                path="email" />
-
-                                                            ${errorEmail}
-
+                                                            <label for="form-lable" class="form-label">Name:</label>
+                                                            <form:input type="text" class="form-control" path="name" />
                                                         </div>
                                                         <div class="col-md-6 col-12">
-                                                            <c:set var="errorPassword">
-                                                                <form:errors path="password"
-                                                                    cssClass="invalid-feedback" />
-                                                            </c:set>
-                                                            <label for="form-lable" class="form-label">Password:</label>
-                                                            <form:input type="password"
-                                                                class="form-control  ${not empty errorPassword ? 'is-invalid':''}"
-                                                                path="password" />
-
-                                                            ${errorPassword}
-                                                        </div>
-                                                    </div>
-                                                    <div class="row g-3 mb-3">
-                                                        <div class="col-md-6 col-12">
-                                                            <label for="form-lable" class="form-label">Phone
-                                                                number:</label>
-                                                            <form:input type="text" class="form-control" path="phone" />
-                                                        </div>
-                                                        <div class="col-md-6 col-12">
-                                                            <c:set var="errorFullName">
-                                                                <form:errors path="fullName"
-                                                                    cssClass="invalid-feedback" />
-                                                            </c:set>
-                                                            <label for="form-lable" class="form-label">Full
-                                                                Name:</label>
-                                                            <form:input type="text"
-                                                                class="form-control ${not empty errorFullName ? 'is-invalid':''}"
-                                                                path="fullName" />
-                                                            ${errorFullName}
+                                                            <label for="form-lable" class="form-label">Price:</label>
+                                                            <form:input type="text" class="form-control" path="price" />
                                                         </div>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="form-lable" class="form-label">Address:</label>
-                                                        <form:input type="text" class="form-control" path="address" />
+                                                        <label for="form-lable" class="form-label">Details
+                                                            description:</label>
+                                                        <form:textarea class="form-control" path="detailDesc" />
                                                     </div>
                                                     <div class="row g-3 mb-3">
                                                         <div class="col-md-6 col-12">
-                                                            <label for="formFile" class="form-label">Role:</label>
-                                                            <form:select class="form-select" path="role.name">
-                                                                <form:option value="ADMIN">ADMIN</form:option>
-                                                                <form:option value="USER">USER</form:option>
+                                                            <label for="form-lable" class="form-label">Short
+                                                                description:</label>
+                                                            <form:input type="email" class="form-control"
+                                                                path="shortDesc" />
+                                                        </div>
+                                                        <div class="col-md-6 col-12">
+                                                            <label for="form-lable" class="form-label">Quantity:</label>
+                                                            <form:input type="number" class="form-control"
+                                                                path="quantity" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-3 mb-3">
+                                                        <div class="col-md-6 col-12">
+                                                            <label for="formFile" class="form-label">Factory:</label>
+                                                            <form:select class="form-select" path="factory">
+                                                                <option value="APPLE-MACBOOK">Apple (MacBook)</option>
+                                                                <option value="ASUS">Asus</option>
+                                                                <option value="LENOVO">Lenovo</option>
+                                                                <option value="DELL">Dell</option>
+                                                                <option value="LG">LG</option>
+                                                                <option value="ACER">Acer</option>
                                                             </form:select>
                                                         </div>
                                                         <div class="col-md-6 col-12">
-                                                            <label for="avatarFile" class="form-label">Avatar:</label>
+                                                            <label for="formFile" class="form-label">Target:</label>
+                                                            <form:select class="form-select" path="target">
+                                                                <option value="GAMING">Gaming</option>
+                                                                <option value="SINH-VIEN-VAN-PHONG">Sinh viên - Văn
+                                                                    phòng</option>
+                                                                <option value="THIET-KE-DO-HOA">Thiết kế đồ họa</option>
+                                                                <option value="MONG-NHE">Mỏng nhẹ</option>
+                                                                <option value="DOANH-NHAN">Doanh nhân</option>
+                                                            </form:select>
+                                                        </div>
+                                                        <div class="col-md-6 col-12">
+                                                            <label for="avatarFile" class="form-label">Image:</label>
                                                             <input class="form-control" type="file" id="avatarFile"
                                                                 name="hoidanitFile" accept=".png, .jpg, .jpeg">
                                                         </div>
@@ -114,10 +108,9 @@
                                                                 id="avatarPreview">
                                                         </div>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary">Create</button>
+                                                    <button type="submit" class="btn btn-primary mb-3">Create</button>
                                                 </form:form>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>

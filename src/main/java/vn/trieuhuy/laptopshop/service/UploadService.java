@@ -20,7 +20,7 @@ public class UploadService {
 
     public String handleSavaUpload(MultipartFile file, String targetFolder) {
         if (file == null || file.isEmpty()) {
-            return null; // return if no choose file
+            return ""; // return if no choose file
         }
 
         String rootPath = this.servletContext.getRealPath("/resources/images");
