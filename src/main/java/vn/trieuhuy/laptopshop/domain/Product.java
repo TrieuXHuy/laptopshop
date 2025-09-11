@@ -126,6 +126,16 @@ public class Product {
         this.target = target;
     }
 
+    public void updateFrom(Product other) {
+        this.name = other.getName();
+        this.price = other.getPrice();
+        this.detailDesc = other.getDetailDesc();
+        this.shortDesc = other.getShortDesc();
+        this.quantity = other.getQuantity();
+        this.factory = other.getFactory();
+        this.target = other.getTarget();
+    }
+
     @Override
     public String toString() {
         return "Product [id=" + id + ", name=" + name + ", price=" + price + ", image=" + image + ", detailDesc="

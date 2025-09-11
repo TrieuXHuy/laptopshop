@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import jakarta.validation.Valid;
 import vn.trieuhuy.laptopshop.domain.Product;
 import vn.trieuhuy.laptopshop.repository.ProductRepository;
 
@@ -28,5 +27,13 @@ public class ProductService {
 
     public void createProduct(Product newProduct) {
         this.productRepository.save(newProduct);
+    }
+
+    public Product findById(long id) {
+        return this.productRepository.findById(id);
+    }
+
+    public void deleteProduct(long id) {
+        this.productRepository.deleteById(id);
     }
 }

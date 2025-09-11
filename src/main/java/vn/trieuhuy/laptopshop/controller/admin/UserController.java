@@ -102,7 +102,7 @@ public class UserController {
         User user = userService.findUserById(newUser.getId());
         String avatar = this.uploadService.handleSavaUpload(file, "avatar");
         if (user != null) {
-            if (avatar != null) {
+            if (avatar != "") {
                 user.setAvatar(avatar);
             }
             user.setRole(this.userService.getRoleByName(newUser.getRole().getName()));
