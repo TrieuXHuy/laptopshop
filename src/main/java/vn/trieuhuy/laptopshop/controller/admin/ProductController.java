@@ -57,7 +57,7 @@ public class ProductController {
     }
 
     @GetMapping("/admin/product/delete/{id}")
-    public String getDeleteUserPage(Model model, @PathVariable long id) {
+    public String getDeleteProductPage(Model model, @PathVariable long id) {
         model.addAttribute("id", id);
         Product product = new Product();
         product.setId(id);
