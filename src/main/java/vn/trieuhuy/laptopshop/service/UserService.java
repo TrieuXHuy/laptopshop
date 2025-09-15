@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import vn.trieuhuy.laptopshop.domain.Role;
 import vn.trieuhuy.laptopshop.domain.User;
+import vn.trieuhuy.laptopshop.domain.dto.RegisterDTO;
 import vn.trieuhuy.laptopshop.repository.RoleRepository;
 import vn.trieuhuy.laptopshop.repository.UserRepository;
 
@@ -18,10 +19,6 @@ public class UserService {
     public UserService(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-    }
-
-    public String handleHello() {
-        return "hello from service";
     }
 
     public User handleSaveUser(User user) {
@@ -51,5 +48,17 @@ public class UserService {
 
     public Role getRoleByName(String name) {
         return this.roleRepository.findByName(name);
+    }
+
+    public User registerDTOtoUser(RegisterDTO resgisterDTO) {
+        User user = new User();
+        user.setFullName(resgisterDTO.getFirstName() + " " + resgisterDTO.getLastName());
+        user.setEmail(resgisterDTO.getEmail());
+        user.setPassword(resgisterDTO.getPassword());
+        return user;
+    }
+
+    public boolean checkEmailExist(String email) {
+        return this.userRepository.existsByEmail(email);
     }
 }
