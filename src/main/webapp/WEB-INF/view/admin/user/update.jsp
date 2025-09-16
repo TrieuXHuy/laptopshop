@@ -77,7 +77,7 @@
                                                             <label for="avatarFile" class="form-label">Change
                                                                 avatar:</label>
                                                             <input class="form-control" type="file" id="avatarFile"
-                                                                name="hoidanitFile" accept=".png, .jpg, .jpeg">
+                                                                name="avatarFile" accept=".png, .jpg, .jpeg">
                                                         </div>
                                                         <div class="col-12">
                                                             <img src="${pathAvatar}" alt="avatar preview"
